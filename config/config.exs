@@ -9,7 +9,7 @@ import Config
 
 config :food_order,
   ecto_repos: [FoodOrder.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime, binary_id: true]
 
 # Configures the endpoint
 config :food_order, FoodOrderWeb.Endpoint,
