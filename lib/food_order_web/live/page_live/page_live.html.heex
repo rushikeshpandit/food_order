@@ -1,21 +1,21 @@
-<section class="py-16">
+<section class="py-16" data-role="hero">
   <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-    <div>
+    <div data-role="hero-cta">
       <h6 class="text-lg">Make your order</h6>
       <h1 class="text-3xl font-bold">Right Now!!!</h1>
       <button class="px-6 py-2 mt-5 bg-orange-500 rounded-full text-white font-bold">
         Order Now
       </button>
     </div>
-    <img src={~p"/images/hero.svg"} alt="" />
+    <img src={~p"/images/hero.svg"} alt="" data-role="hero-img" />
   </div>
 </section>
-<section class="container mx-auto py-8">
+<section class="container mx-auto py-8" data-role="products-section">
   <h1 class="text-left font-bold mb-8">All foods</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-    <div :for={_ <- 1..10} class="shadow-lg rounded-lg p-4 mb-2 hover:bg-neutral-100">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-role="products-lists">
+    <div :for={ i <- 1..10} data-role="item" data-id={Integer.to_string(i)} class="shadow-lg rounded-lg p-4 mb-2 hover:bg-neutral-100">
       <img src={~p"/images/product_1.jpg"} alt="" class="h-40 mb-4 mx-auto" />
-      <div class="text-center">
+      <div class="text-center" data-role="item-details" data-id={Integer.to_string(i)}>
         <h2 class="mb-4 text-lg">Product Name</h2>
         <span class="bg-neutral-200 py-1 px-4 rounded-full uppercase text-xs">small</span>
         <div class="mt-6 flex items-center justify-around">
