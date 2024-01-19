@@ -1,16 +1,18 @@
 <div class="mx-auto max-w-7xl">
   <.flash_group flash={@flash} />
   <nav class="flex items-center justify-between py-4 ">
-    <div id="logo">logo</div>
+    <div id="logo">
+      <img src={~p"/images/logo.png"} alt="" class="h-14 w-14" />
+    </div>
     <ul class="flex items-center">
       <li class="ml-6">Admin Products</li>
       <li class="ml-6">Admin Orders</li>
       <li class="ml-6">My Orders</li>
       <li class="ml-6">Settings</li>
       <li class="ml-6">Log out</li>
-      <li class="ml-6 p-4 bg-blue-500 text-neutral-100 rounded-full flex group hover:text-blue-500 hover:bg-neutral-100 transition">
+      <li class="ml-6 p-4 items-center bg-orange-500 text-neutral-100 rounded-full flex group hover:text-blue-500 hover:bg-neutral-100 transition">
         <span class="text-xl">0</span>
-        <.icon name="hero-shopping-cart-solid" class="h-8 w-8 stroke-current" />
+        <.icon name="hero-shopping-cart-solid" class="h-6 w-6 stroke-current" />
       </li>
     </ul>
   </nav>
