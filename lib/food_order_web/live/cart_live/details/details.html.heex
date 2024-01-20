@@ -1,0 +1,48 @@
+<div class="container mx-auto lg:w-1/2">
+  <div class="flex items-center border-b border-neutral-300 pb-4">
+    <.icon name="hero-shopping-bag-solid" class="h-10 w-10 text-orange-500" /> <br />
+    <h1 class="font-bold text-3xl mx-8">Order Details</h1>
+  </div>
+  <div>
+    <div :for={_ <- 1..4} class="flex items-center my-8 shadow-lg p-2 hover:bg-neutral-100">
+      <img src={~p"/images/product_1.jpg"} alt="" class="h-16 w-16 rounded-full" />
+      <div class="flex-1 ml-4">
+        <h1>Pizza</h1>
+        <span>small</span>
+      </div>
+      <div class="flex-1">
+        <div class="flex items-center">
+          <button class="p-1 m-2 rounded-full text-white font-bold bg-orange-500">-</button>
+          <span>10 Items</span>
+          <button class="p-1 m-2 rounded-full text-white font-bold bg-orange-500">+</button>
+        </div>
+      </div>
+      <div class="flex flex-1 items-center">
+        <span class="font-bold text-lg">$100</span>
+        <button class="w-6 h-6 rounded-full text-white bg-orange-500 font-bold ml-2">
+          &times
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="text-right py-4">
+    <div>
+      <span class="text-lg">Total Amount:</span>
+      <span class="text-2xl font-bold ml-2">$10000</span>
+    </div>
+    <form action="" class="mt-12">
+      <input
+        type="text"
+        class="border border-neutral-200 p-2 w-1/2 mb-4"
+        placeholder="Phone number"
+      />
+      <input type="text" class="border border-neutral-200 p-2 w-1/2 mb-4" placeholder="Addess" />
+      <div>
+        <button class=" bg-orange-500 px-6 py-2 rounded-full text-white font-bold mt-6">
+          Order now
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

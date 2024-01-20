@@ -10,10 +10,13 @@
       <li class="ml-6">My Orders</li>
       <li class="ml-6">Settings</li>
       <li class="ml-6">Log out</li>
-      <li class="ml-6 p-4 items-center bg-orange-500 text-neutral-100 rounded-full flex group hover:text-blue-500 hover:bg-neutral-100 transition">
+      <a
+        href={~p"/cart"}
+        class="ml-6 p-4 items-center bg-orange-500 text-neutral-100 rounded-full flex group hover:text-blue-500 hover:bg-neutral-100 transition"
+      >
         <span class="text-xl">0</span>
         <.icon name="hero-shopping-cart-solid" class="h-6 w-6 stroke-current" />
-      </li>
+      </a>
     </ul>
   </nav>
   <%= @inner_content %>
