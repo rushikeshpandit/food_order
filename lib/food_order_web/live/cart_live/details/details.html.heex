@@ -17,14 +17,14 @@
       />
       <div class="flex-1 ml-4">
         <h1>Pizza</h1>
-        <span>small</span>
+        <span>Small</span>
       </div>
       <div class="flex-1" data-role="quantity">
         <div class="flex items-center">
           <button data-role="dec" class="p-1 m-2 rounded-full text-white font-bold bg-orange-500">
             -
           </button>
-          <span>10 Items</span>
+          <span>10 Item(s)</span>
           <button data-role="add" class="p-1 m-2 rounded-full text-white font-bold bg-orange-500">
             +
           </button>
@@ -39,23 +39,27 @@
     </div>
   </div>
   <hr />
-  <div class="text-right py-4" data-role="total-cart">
+  <div class="text-right py-4">
     <div>
       <span class="text-lg">Total Amount:</span>
-      <span class="text-2xl font-bold ml-2">$10000</span>
+      <span class="text-2xl font-bold ml-2">$1000</span>
     </div>
-    <form action="" class="mt-12">
-      <input
-        type="text"
-        class="border border-neutral-200 p-2 w-1/2 mb-4"
-        placeholder="Phone number"
-      />
-      <input type="text" class="border border-neutral-200 p-2 w-1/2 mb-4" placeholder="Addess" />
+
+    <div class="text-right py-4" data-role="total-cart">
       <div>
-        <button class=" bg-orange-500 px-6 py-2 rounded-full text-white font-bold mt-6">
-          Order now
-        </button>
+        <input
+          type="text"
+          class="border border-neutral-400 p-2 w-1/2 mb-4"
+          placeholder="Phone Number"
+        />
+        <input type="text" class="border border-neutral-400 p-2 w-1/2 mb-4" placeholder="Address" />
+
+        <div>
+          <button class="bg-orange-500 text-white px-6 py-2 rounded-full font-bold mt-6">
+            Order Now
+          </button>
+        </div>
       </div>
-    </form>
+    </div>
   </div>
 </div>
