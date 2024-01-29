@@ -1,0 +1,16 @@
+<div>
+  <.simple_form
+    for={@form}
+    id="products-form"
+    phx-submit="save"
+    phx-change="validate"
+    phx-target={@myself}
+  >
+    <.input field={@form[:name]} label="Name" />
+    <.input field={@form[:description]} type="textarea" label="Description" />
+    <.input field={@form[:price]} type="number" label="Price" />
+    <:actions>
+      <.button phx-disable-with="Saving...">Create Products</.button>
+    </:actions>
+  </.simple_form>
+</div>
