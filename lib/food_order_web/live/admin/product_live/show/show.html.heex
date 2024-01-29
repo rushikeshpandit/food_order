@@ -1,12 +1,32 @@
 <.header>
   <.back navigate={~p"/admin/products"}>Back to Products</.back>
-  <.list>
-    <:item title="Name"><%= @product.name %></:item>
-    <:item title="Description"><%= @product.description %></:item>
-    <:item title="Price"><%= @product.price %></:item>
-    <:item title="Size"><%= @product.size %></:item>
-    <:item title="Image">
-      <img src={~p"/images/#{@product.image_url}"} alt="" class="h-40 mb-4 mx-auto" />
-    </:item>
-  </.list>
+  <:actions :let={product}>
+    <div>
+      <.link patch={~p"/admin/products/#{@product.id}/show/edit"}>Edit Product</.link>
+    </div>
+  </:actions>
 </.header>
+<.list>
+  <:item title="Name"><%= @product.name %></:item>
+  <:item title="Description"><%= @product.description %></:item>
+  <:item title="Price"><%= @product.price %></:item>
+  <:item title="Size"><%= @product.size %></:item>
+  <:item title="Image">
+    <img src={~p"/images/#{@product.image_url}"} alt="" class="h-40 mb-4 mx-auto" />
+  </:item>
+</.list>
+<.modal
+  :if={@live_action == :edit}
+  show
+  id="product-modal"
+  on_cancel={JS.navigate(~p"/admin/products/#{@product}")}
+>
+  <.live_component
+    module={Form}
+    id={@product.id}
+    title={@page_title}
+    product={@product}
+    action={@live_action}
+    navigate={~p"/admin/products/#{@product}"}
+  />
+</.modal>
