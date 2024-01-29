@@ -18,11 +18,27 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
-    case Products.create_product(product_params) do
+    save(socket, socket.assigns.action, product_params)
+  end
+
+  defp save(socket, :new, product_params) do
+    perform(socket, Products.create_product(product_params), "Product created successfully")
+  end
+
+  defp save(socket, :edit, product_params) do
+    perform(
+      socket,
+      Products.update_product(socket.assigns.product, product_params),
+      "Product updated successfully"
+    )
+  end
+
+  defp perform(socket, function_result, message) do
+    case function_result do
       {:ok, _} ->
         socket =
           socket
-          |> put_flash(:info, "Product created successfully")
+          |> put_flash(:info, message)
           |> push_navigate(to: socket.assigns.navigate)
 
         {:noreply, socket}
