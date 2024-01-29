@@ -21,4 +21,8 @@ defmodule FoodOrderWeb.Admin.ProductLive.Index do
   defp apply_action(socket, :index) do
     socket |> assign(:page_title, "List Products")
   end
+
+  defp apply_action(socket, :show) do
+    socket |> assign(:page_title, "List Products")
+  end
 end
