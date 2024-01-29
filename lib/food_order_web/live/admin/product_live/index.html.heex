@@ -1,5 +1,8 @@
 <.header>
   List Products
+  <:actions>
+    <.link patch={~p"/admin/products/new"}> New Product </.link>
+  </:actions>
 </.header>
 
 <.table id="products" rows={@products}>
