@@ -1,6 +1,19 @@
+alias FoodOrder.Accounts
 alias FoodOrder.Products
 
-for index <- 0..100,
+Accounts.register_user(%{
+  email: "admin@rpandit.com",
+  password: "Admin@rp.in12",
+  role: "ADMIN"
+})
+
+Accounts.register_user(%{
+  email: "user@rpandit.com",
+  password: "User@rp.in12",
+  role: "USER"
+})
+
+for index <- 0..20,
     do:
       Products.create_product(%{
         description: "bla bla",

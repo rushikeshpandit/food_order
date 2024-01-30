@@ -5,7 +5,7 @@ defmodule FoodOrderWeb.UserAuth do
   import Phoenix.Controller
 
   alias FoodOrder.Accounts
-
+  import FoodOrderWeb.MountUser
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
   # the token expiry itself in UserToken.
@@ -170,14 +170,6 @@ defmodule FoodOrderWeb.UserAuth do
     else
       {:cont, socket}
     end
-  end
-
-  defp mount_current_user(socket, session) do
-    Phoenix.Component.assign_new(socket, :current_user, fn ->
-      if user_token = session["user_token"] do
-        Accounts.get_user_by_session_token(user_token)
-      end
-    end)
   end
 
   @doc """

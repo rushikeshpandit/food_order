@@ -4,18 +4,17 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
   import Phoenix.LiveViewTest
 
   describe "index" do
-    setup [:create_product, :register_and_log_in_user]
+    setup [:create_product, :register_and_log_in_admin_user]
 
     test "list products", %{conn: conn, product: product} do
       {:ok, view, _html} = live(conn, ~p"/admin/products")
 
       assert has_element?(view, "header>div>h1", "List Products")
-
-      product_id = "#products-#{product.id}"
+      product_id = "#products"
       assert has_element?(view, product_id)
-      assert has_element?(view, product_id <> ">td>div>span", product.name)
-      assert has_element?(view, product_id <> ">td>div>span", Money.to_string(product.price))
-      assert has_element?(view, product_id <> ">td>div>span", Atom.to_string(product.size))
+      assert has_element?(view, product_id <> ">tr>td>div>span", product.name)
+      assert has_element?(view, product_id <> ">tr>td>div>span", Money.to_string(product.price))
+      assert has_element?(view, product_id <> ">tr>td>div>span", Atom.to_string(product.size))
     end
 
     test "add new product", %{conn: conn} do
@@ -33,12 +32,12 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
     test "delete product", %{conn: conn, product: product} do
       {:ok, view, _html} = live(conn, ~p"/admin/products")
 
-      product_id = "#products-#{product.id}"
+      product_id = "#products"
 
       assert has_element?(view, product_id)
 
       view
-      |> element(product_id <> ">td>div>span>div>a", "Delete")
+      |> element(product_id <> ">tr>td>div>span>div>a", "Delete")
       |> render_click()
 
       refute has_element?(view, product_id)
@@ -47,9 +46,10 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
 
   test "updates product in listing", %{conn: conn, product: product} do
     {:ok, view, _html} = live(conn, ~p"/admin/products")
+    product_id = "#products"
 
     assert view
-           |> element("#products-#{product.id}>td>div>span>div>a", "Edit")
+           |> element(product_id <> ">tr>td>div>span>div>a", "Edit")
            |> render_click()
 
     assert_patch(view, ~p"/admin/products/#{product.id}/edit")
