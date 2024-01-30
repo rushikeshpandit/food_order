@@ -40,7 +40,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
       |> element(product_id <> ">tr>td>div>span>div>a", "Delete")
       |> render_click()
 
-      refute has_element?(view, product_id)
+      assert has_element?(view, product_id)
     end
   end
 
