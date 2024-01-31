@@ -40,4 +40,29 @@ defmodule FoodOrderWeb.Admin.ProductLive.Index do
 
     {:noreply, update(socket, :products, delete_product)}
   end
+
+  def handle_event("filter_by_name", %{"name" => name}, socket) do
+    products = Products.list_products(name: name)
+    {:noreply, assign(socket, products: products, name: name)}
+  end
+
+  def search_by_name(assigns) do
+    ~H"""
+    <form phx-submit="filter_by_name" class="mr-4">
+      <div class="relative">
+        <span class="absolute inset-y-0 pl-2, left-2 flex items-center">
+          <.icon name="hero-magnifying-glass-solid" class="h-6 w-6 stroke-current" /> <br />
+        </span>
+        <input
+          type="text"
+          autocomplete="off"
+          name="name"
+          value={@name}
+          placeholder="Search by name"
+          class="pl-10 pr-4 py-4 text-gray-900 text-sm leading-tight border-gray-400 placeholder-gray-600 rounded-md border"
+        />
+      </div>
+    </form>
+    """
+  end
 end
