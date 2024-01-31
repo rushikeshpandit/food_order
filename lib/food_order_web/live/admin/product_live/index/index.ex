@@ -4,14 +4,18 @@ defmodule FoodOrderWeb.Admin.ProductLive.Index do
   use FoodOrderWeb, :live_view
   alias FoodOrder.Products
 
-  def mount(_, _, socket) do
-    products = Products.list_products()
-    {:ok, assign(socket, products: products)}
-  end
-
   def handle_params(params, _uri, socket) do
     live_action = socket.assigns.live_action
-    {:noreply, apply_action(socket, live_action, params)}
+    name = params["name"] || ""
+    products = Products.list_products(name: name)
+
+    socket =
+      socket
+      |> apply_action(live_action, params)
+      |> assign(name: name)
+      |> assign(products: products)
+
+    {:noreply, socket}
   end
 
   defp apply_action(socket, :new, _params) do
