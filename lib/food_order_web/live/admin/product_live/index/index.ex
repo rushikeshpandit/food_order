@@ -7,8 +7,14 @@ defmodule FoodOrderWeb.Admin.ProductLive.Index do
   def handle_params(params, _uri, socket) do
     live_action = socket.assigns.live_action
     name = params["name"] || ""
-    products = Products.list_products(name: name)
-    assigns = [name: name, products: products, loading: false]
+    sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
+    sort_order = (params["sort_order"] || "desc") |> String.to_atom()
+
+    sort = %{sort_by: sort_by, sort_order: sort_order}
+    products = Products.list_products(name: name, sort: sort)
+
+    options = Map.merge(sort, %{name: name})
+    assigns = [options: options, products: products, loading: false]
 
     socket =
       socket
@@ -43,11 +49,12 @@ defmodule FoodOrderWeb.Admin.ProductLive.Index do
   end
 
   defp return_response([], socket, params) do
-    assigns = [loading: false, products: [], name: params[:name]]
+    assigns = [loading: false, products: []]
 
     socket
-    |> put_flash(:error, "There is no product with: \"#{params[:name]}\"")
     |> assign(assigns)
+    |> update(:options, &Map.put(&1, :name, params[:name]))
+    |> put_flash(:error, "There is no product with: \"#{params[:name]}\"")
   end
 
   defp return_response(products, socket, _params) do
@@ -71,9 +78,9 @@ defmodule FoodOrderWeb.Admin.ProductLive.Index do
   end
 
   defp apply_filters(socket, name) do
-    assigns = [products: [], name: name, loading: true]
+    assigns = [products: [], loading: true]
     send(self(), {:list_product, name})
-    assign(socket, assigns)
+    socket |> assign(assigns) |> update(:options, &Map.put(&1, :name, name))
   end
 
   def search_by_name(assigns) do
