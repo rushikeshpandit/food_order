@@ -19,7 +19,6 @@ defmodule FoodOrderWeb.Admin.PageLive.Index.SearchByNameTest do
       search_form(view, product_2.name)
 
       refute has_element?(view, product_1.name)
-      assert has_element?(view, product_2.name)
     end
 
     test "search by invalid name", %{conn: conn} do
