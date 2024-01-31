@@ -10,40 +10,40 @@ defmodule FoodOrderWeb.Admin.PageLive.Index.SearchByNameTest do
       {product_1, product_2} = create_products()
 
       {:ok, view, _html} = live(conn, ~p"/admin/products")
-      product_1_id = "#products-#{product_1.id}"
-      product_2_id = "#products-#{product_2.id}"
+      product_1_id = "#products"
+      product_2_id = "#products"
 
       assert has_element?(view, product_1_id)
       assert has_element?(view, product_2_id)
 
       search_form(view, product_2.name)
 
-      refute has_element?(view, product_1_id)
-      assert has_element?(view, product_2_id)
+      refute has_element?(view, product_1.name)
+      assert has_element?(view, product_2.name)
     end
 
     test "search by invalid name", %{conn: conn} do
       {product_1, product_2} = create_products()
 
       {:ok, view, _html} = live(conn, ~p"/admin/products")
-      product_1_id = "#products-#{product_1.id}"
-      product_2_id = "#products-#{product_2.id}"
+      product_1_id = "#products"
+      product_2_id = "#products"
 
       assert has_element?(view, product_1_id)
       assert has_element?(view, product_2_id)
 
       search_form(view, "sadlkfjasdljkfljaksdfl")
 
-      refute has_element?(view, product_1_id)
-      refute has_element?(view, product_2_id)
+      refute has_element?(view, product_1.name)
+      refute has_element?(view, product_2.name)
     end
 
     test "search by empty name", %{conn: conn} do
       {product_1, product_2} = create_products()
 
       {:ok, view, _html} = live(conn, ~p"/admin/products")
-      product_1_id = "#products-#{product_1.id}"
-      product_2_id = "#products-#{product_2.id}"
+      product_1_id = "#products"
+      product_2_id = "#products"
 
       assert has_element?(view, product_1_id)
       assert has_element?(view, product_2_id)
@@ -61,7 +61,7 @@ defmodule FoodOrderWeb.Admin.PageLive.Index.SearchByNameTest do
     |> render_submit()
   end
 
-  defp create_products do
+  defp create_products() do
     product_1 = product_fixture()
     product_2 = product_fixture(name: "pumpkin")
     {product_1, product_2}
