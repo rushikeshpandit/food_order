@@ -46,11 +46,14 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
 
   test "updates product in listing", %{conn: conn, product: product} do
     {:ok, view, _html} = live(conn, ~p"/admin/products")
+
     product_id = "#products"
 
-    assert view
-           |> element(product_id <> ">tr>td>div>span>div>a", "Edit")
-           |> render_click()
+    assert has_element?(view, product_id)
+
+    view
+    |> element(product_id <> ">tr>td>div>span>div>a", "Edit")
+    |> render_click()
 
     assert_patch(view, ~p"/admin/products/#{product.id}/edit")
 
