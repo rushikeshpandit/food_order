@@ -80,7 +80,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
 
       {:ok, _, html} =
         view
-        |> form("#product-form", product: %{description: "pumpkin updated"})
+        |> form("#products-form", product: %{description: "pumpkin updated"})
         |> render_submit()
         |> follow_redirect(conn, ~p"/admin/products/#{product}")
 
