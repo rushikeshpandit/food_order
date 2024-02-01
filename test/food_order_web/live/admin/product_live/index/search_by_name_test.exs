@@ -52,6 +52,20 @@ defmodule FoodOrderWeb.Admin.PageLive.Index.SearchByNameTest do
       assert has_element?(view, product_1_id)
       assert has_element?(view, product_2_id)
     end
+
+    test "suggest name test", %{conn: conn} do
+      {product_1, _product_2} = create_products()
+
+      {:ok, view, _html} = live(conn, ~p"/admin/products")
+
+      assert view |> element("#names") |> render() =~ "<datalist id=\"names\"></datalist>"
+
+      view
+      |> form("[phx-submit=filter_by_name]", %{name: product_1.name})
+      |> render_change()
+
+      assert view |> element("#names") |> render() =~ product_1.name
+    end
   end
 
   defp search_form(view, name) do
@@ -60,7 +74,7 @@ defmodule FoodOrderWeb.Admin.PageLive.Index.SearchByNameTest do
     |> render_submit()
   end
 
-  defp create_products() do
+  defp create_products do
     product_1 = product_fixture()
     product_2 = product_fixture(name: "pumpkin")
     {product_1, product_2}
