@@ -58,7 +58,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
 
       {:ok, _, html} =
         view
-        |> form("#product-form", product: %{name: "pumpkin name updated"})
+        |> form("#products-form", product: %{name: "pumpkin name updated"})
         |> render_submit()
         |> follow_redirect(conn, ~p"/admin/products")
 
@@ -75,7 +75,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
       assert_patch(view, ~p"/admin/products/#{product}/show/edit")
 
       assert view
-             |> form("#product-form", product: %{description: nil})
+             |> form("#products-form", product: %{description: nil})
              |> render_submit() =~ "be blank"
 
       {:ok, _, html} =
