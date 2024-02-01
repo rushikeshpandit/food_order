@@ -29,7 +29,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
              |> render_change() =~ "be blank"
     end
 
-    test "delete product", %{conn: conn, product: product} do
+    test "delete product", %{conn: conn, product: _product} do
       {:ok, view, _html} = live(conn, ~p"/admin/products")
 
       product_id = "#products"
