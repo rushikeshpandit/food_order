@@ -29,7 +29,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
              |> render_change() =~ "be blank"
     end
 
-    test "delete product", %{conn: conn, product: product} do
+    test "delete product", %{conn: conn, product: _product} do
       {:ok, view, _html} = live(conn, ~p"/admin/products")
 
       product_id = "#products"
@@ -58,7 +58,7 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
 
       {:ok, _, html} =
         view
-        |> form("#product-form", product: %{name: "pumpkin name updated"})
+        |> form("#products-form", product: %{name: "pumpkin name updated"})
         |> render_submit()
         |> follow_redirect(conn, ~p"/admin/products")
 
@@ -75,17 +75,31 @@ defmodule FoodOrderWeb.Admin.PageLive.IndexTest do
       assert_patch(view, ~p"/admin/products/#{product}/show/edit")
 
       assert view
-             |> form("#product-form", product: %{description: nil})
+             |> form("#products-form", product: %{description: nil})
              |> render_submit() =~ "be blank"
 
       {:ok, _, html} =
         view
-        |> form("#product-form", product: %{description: "pumpkin updated"})
+        |> form("#products-form", product: %{description: "pumpkin updated"})
         |> render_submit()
         |> follow_redirect(conn, ~p"/admin/products/#{product}")
 
       assert html =~ "Product updated successfully"
       assert html =~ "pumpkin updated"
+    end
+  end
+
+  describe "sort" do
+    setup [:create_product, :register_and_log_in_admin_user]
+
+    test "sort products", %{conn: conn} do
+      {:ok, view, _html} = live(conn, ~p"/admin/products")
+
+      view |> element("th>a", "name") |> render_click()
+      assert_patched(view, ~p"/admin/products?name=&sort_by=name&sort_order=asc&")
+
+      view |> element("th>a", "name") |> render_click()
+      assert_patched(view, ~p"/admin/products?name=&sort_by=name&sort_order=desc&")
     end
   end
 

@@ -38,7 +38,7 @@ defmodule FoodOrderWeb.Admin.PageLive.Index.SearchByNameTest do
     end
 
     test "search by empty name", %{conn: conn} do
-      {product_1, product_2} = create_products()
+      {_product_1, _product_2} = create_products()
 
       {:ok, view, _html} = live(conn, ~p"/admin/products")
       product_1_id = "#products"
