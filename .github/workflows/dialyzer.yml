@@ -22,6 +22,8 @@ jobs:
           key:
             ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{
             hashFiles(format('{0}-{1}', github.workspace, '/mix.lock')) }}
+      - name: Clean cache
+        run: mix deps.clean --all
       - name: Install Mix Dependencies
         if: steps.mix-dialyzer-cache.outputs.cache-hit != 'true'
         run: mix deps.get

@@ -2,11 +2,11 @@ name: Check Security
 
 on: pull_request
 
-jobs: 
+jobs:
   check_security:
     runs-on: ubuntu-latest
-    strategy: 
-      matrix: 
+    strategy:
+      matrix:
         elixir: [1.14]
         otp: [26]
     steps:
@@ -19,8 +19,12 @@ jobs:
         id: mix-sobelow-cache
         with:
           path: deps
-          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}-{1}', github.workspace, '/mix.lock')) }}
-      - name:  Install Mix Dependencies
+          key:
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{
+            hashFiles(format('{0}-{1}', github.workspace, '/mix.lock')) }}
+      - name: Clean cache
+        run: mix deps.clean --all
+      - name: Install Mix Dependencies
         if: steps.mix-sobelow-cache.outputs.cache-hit != 'true'
         run: mix deps.get
       - name: Check Security
