@@ -13,7 +13,7 @@ Accounts.register_user(%{
   role: "USER"
 })
 
-for index <- 0..20,
+for index <- 0..100,
     do:
       Products.create_product(%{
         description: "bla bla",
