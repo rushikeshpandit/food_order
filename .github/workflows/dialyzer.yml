@@ -10,22 +10,18 @@ jobs:
         elixir: [1.14]
         otp: [26]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: erlef/setup-elixir@v1
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
-      - uses: actions/cache@v1
+      - uses: actions/cache@v4
         id: mix-dialyzer-cache
         with:
           path: deps
           key:
             ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{
             hashFiles(format('{0}-{1}', github.workspace, '/mix.lock')) }}
-      - name: Updating mix locally
-        run: mix local.hex
-      - name: Clean cache
-        run: mix deps.clean --all
       - name: Install Mix Dependencies
         if: steps.mix-dialyzer-cache.outputs.cache-hit != 'true'
         run: mix deps.get
