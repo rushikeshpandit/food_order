@@ -73,11 +73,13 @@ defmodule FoodOrder.Carts.Core.HandleCarts do
         if item_detail.item.id == item_id do
           updated_item = %{item_detail | qty: item_detail.qty - 1}
 
-          if updated_item.qty == 0 do
-            {list, updated_item}
-          else
-            item_updated = [updated_item]
-            {list ++ item_updated, updated_item}
+          case updated_item.qty == 0 do
+            true ->
+              {list, updated_item}
+
+            false ->
+              item_updated = [updated_item]
+              {list ++ item_updated, updated_item}
           end
         else
           {[item_detail] ++ list, item}
