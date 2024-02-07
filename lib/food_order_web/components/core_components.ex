@@ -489,12 +489,12 @@ defmodule FoodOrderWeb.CoreComponents do
                     <%= if col[:options][:sort_order] == :asc do %>
                       <.icon
                         name="hero-bars-arrow-up-solid"
-                        class={[is_active(col), "h-5 w-5 stroke-current"]}
+                        class={[active?(col), "h-5 w-5 stroke-current"]}
                       />
                     <% else %>
                       <.icon
                         name="hero-bars-arrow-down-solid"
-                        class={[is_active(col), "h-5 w-5 stroke-current"]}
+                        class={[active?(col), "h-5 w-5 stroke-current"]}
                       />
                     <% end %>
                   </div>
@@ -544,7 +544,7 @@ defmodule FoodOrderWeb.CoreComponents do
     """
   end
 
-  defp is_active(col) do
+  defp active?(col) do
     (Atom.to_string(col[:options][:sort_by]) == col[:label] && "text-orange-500") ||
       "text-gray-500"
   end
