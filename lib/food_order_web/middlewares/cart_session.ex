@@ -4,9 +4,10 @@ defmodule FoodOrderWeb.Middlewares.CartSession do
   alias(FoodOrder.Accounts)
   alias FoodOrder.Carts
 
-  def on_mount(:default, _, params, socket) do
+  def on_mount(:default, _, session, socket) do
     cart_id = get_connect_params(socket)["cart_id"]
-    socket = socket |> assign_user(params["user_token"]) |> create_cart(cart_id)
+    user_token = session["user_token"]
+    socket = socket |> assign_user(user_token) |> create_cart(cart_id)
 
     {:cont, socket}
   end
