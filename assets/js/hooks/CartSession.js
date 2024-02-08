@@ -1,8 +1,8 @@
 const CartSession = {
     mounted() {
         this.handleEvent("create_cart_session_id", map => {
-            var { cart_id: cart_id } = map
-            sessionStorage.setItem("cart_id", cart_id)
+            var { cartId: cartId } = map
+            sessionStorage.setItem("cart_id", cartId)
         })
     }
 }

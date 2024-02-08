@@ -1,4 +1,4 @@
-<div id="cart_session" phx-hook="CartSession">
+<div id="cart-session" phx-hook="CartSession">
   <section class="py-16" data-role="hero">
     <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
       <div data-role="hero-cta">
@@ -24,6 +24,7 @@
         module={Item}
         id={product.id}
         product={product}
+        cart_id={@cart_id}
       />
     </div>
   </section>
