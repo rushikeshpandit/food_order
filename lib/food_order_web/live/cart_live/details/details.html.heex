@@ -3,7 +3,13 @@
     <.icon name="hero-shopping-bag-solid" class="h-10 w-10 text-orange-500" /> <br />
     <h1 class="font-bold text-3xl mx-8">Order Details</h1>
   </div>
-  <.live_component :for={item <- @cart.items} module={Item} id={item.item.id} item={item} />
+  <.live_component
+    :for={item <- @cart.items |> Enum.sort()}
+    module={Item}
+    id={item.item.id}
+    item={item}
+    cart_id={@cart.id}
+  />
 
   <hr />
   <div class="text-right py-4">
