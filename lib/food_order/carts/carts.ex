@@ -6,4 +6,5 @@ defmodule FoodOrder.Carts do
   def inc(cart_id, product_id), do: GenServer.call(@name, {:inc, cart_id, product_id})
   def remove(cart_id, product), do: GenServer.cast(@name, {:remove, cart_id, product})
   def dec(cart_id, product_id), do: GenServer.call(@name, {:dec, cart_id, product_id})
+  def delete(cart_id), do: GenServer.cast(@name, {:delete, cart_id})
 end
