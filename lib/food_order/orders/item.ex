@@ -6,7 +6,7 @@ defmodule FoodOrder.Orders.Item do
   @foreign_key_type :binary_id
   schema "items" do
     field :quantity, :integer
-    belongs_to :product_id, Product
+    belongs_to :product, Product
     field :order_id, :binary_id
 
     timestamps(type: :utc_datetime)
