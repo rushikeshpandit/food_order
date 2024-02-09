@@ -2,6 +2,7 @@ defmodule FoodOrder.Orders.Order do
   use Ecto.Schema
   import Ecto.Changeset
   alias FoodOrder.Accounts.User
+  alias FoodOrder.Orders.Item
 
   @status_values ~w/NOT_STARTED RECEIVED PREPARING DELIVERING DELIVERED/a
   @field ~w/status/a
@@ -17,6 +18,7 @@ defmodule FoodOrder.Orders.Order do
     field :status, Ecto.Enum, values: @status_values, default: :NOT_STARTED
 
     belongs_to :user, User
+    has_many :items, Item
 
     timestamps(type: :utc_datetime)
   end
@@ -27,5 +29,6 @@ defmodule FoodOrder.Orders.Order do
     |> cast(attrs, @field ++ @required_field)
     |> validate_required(@required_field)
     |> validate_number(:total_quantity, greater_than: 0)
+    |> cast_assoc(:items, with: &Item.changeset/2)
   end
 end
