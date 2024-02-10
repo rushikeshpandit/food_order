@@ -73,6 +73,10 @@ defmodule FoodOrderWeb.Router do
       on_mount: [{FoodOrderWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      scope "/customer", CUstomer, as: :customer do
+        live "/orders", OrderLive.Index, :index
+      end
     end
 
     live_session :require_admin,
