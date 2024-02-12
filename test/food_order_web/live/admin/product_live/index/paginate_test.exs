@@ -14,7 +14,7 @@ defmodule FoodOrderWeb.Admin.ProductLive.PaginateTest do
 
       assert_patched(
         view,
-        ~p"/admin/products?name=&sort_by=updated_at&sort_order=desc&per_page=4&page=2"
+        ~p"/admin/products?name=&sort_by=updated_at&page=2&per_page=4&sort_order=desc"
       )
 
       view |> element("[data-role=previous]") |> render_click()

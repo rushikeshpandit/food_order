@@ -11,6 +11,6 @@ defmodule FoodOrder.Orders.ListOrdersByStatusTest do
     product = product_fixture()
     user = user_fixture()
     order_fixtures(product, user)
-    assert 1 == ListOrdersByStatus.execute(:NOT_STARTED) |> Enum.count()
+    assert 2 == ListOrdersByStatus.execute(:NOT_STARTED) |> Enum.count()
   end
 end

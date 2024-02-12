@@ -74,7 +74,7 @@ defmodule FoodOrderWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 
-      scope "/customer", CUstomer, as: :customer do
+      scope "/customer", Customer, as: :customer do
         live "/orders", OrderLive.Index, :index
       end
     end
