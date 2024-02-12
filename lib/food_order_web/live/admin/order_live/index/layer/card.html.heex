@@ -1,4 +1,4 @@
-<li id={@id} class="block p-5 mb-5 rounded-md bg-white shadow">
+<li id={@id} class="block p-5 mb-5 rounded-md bg-white shadow draggable">
   <a href="#">
     <div class="flex-justify-between mb-2">
       <p class="text-xs font-medium leading-snug text-gray-900"><%= @id %></p>
@@ -24,7 +24,7 @@
         </li>
         <li class="flex justify-between mb-1">
           <span>Total Quantity: </span>
-          <span><%= @card.total_qty %></span>
+          <span><%= @card.total_quantity %></span>
         </li>
         <li class="flex justify-between mb-1">
           <span>Customer: </span>
