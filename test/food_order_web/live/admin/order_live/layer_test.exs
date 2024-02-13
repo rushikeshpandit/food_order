@@ -1,5 +1,6 @@
 defmodule FoodOrderWeb.Admin.OrderLive.Index.LayerTest do
   use FoodOrderWeb.ConnCase
+  alias FoodOrder.Orders
   import FoodOrder.OrdersFixtures
   import FoodOrder.ProductsFixtures
   import Phoenix.LiveViewTest
@@ -49,5 +50,34 @@ defmodule FoodOrderWeb.Admin.OrderLive.Index.LayerTest do
 
       assert has_element?(view, "#NOT_STARTED>##{order.id}")
     end
+
+    test "send to another layer using handle_info", %{conn: conn, user: user} do
+      product = product_fixture()
+      order = order_fixtures(product, user)
+
+      {:ok, view, _html} = live(conn, ~p"/admin/orders")
+      assert has_element?(view, "#NOT_STARTED>##{order.id}")
+      refute has_element?(view, "#RECEIVED>##{order.id}")
+
+      Orders.update_order_status(order.id, "NOT_STARTED", "RECEIVED")
+
+      refute has_element?(view, "#NOT_STARTED>##{order.id}")
+      assert has_element?(view, "#RECEIVED>##{order.id}")
+    end
+
+    # test "send to another layer using handle_info using pid", %{conn: conn, user: user} do
+    #   product = product_fixture()
+    #   order = order_fixtures(product, user)
+
+    #   {:ok, view, _html} = live(conn, ~p"/admin/orders")
+    #   assert has_element?(view, "#NOT_STARTED>##{order.id}")
+    #   refute has_element?(view, "#RECEIVED>##{order.id}")
+
+    #   order = order |> Map.update(status: :RECEIVED)
+    #   send(view.pid, {:order_updated, order, :NOT_STARTED})
+
+    #   refute has_element?(view, "#NOT_STARTED>##{order.id}")
+    #   assert has_element?(view, "#RECEIVED>##{order.id}")
+    # end
   end
 end
