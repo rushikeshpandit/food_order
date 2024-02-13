@@ -2,9 +2,13 @@
   <td class="border px-4 py-2">
     <.link href={~p"/customer/orders/#{@order.id}"}><%= @order.id %></.link>
   </td>
-  <td class="border px-4 py-2"><%= @order.address %></td>
+  <td class="border px-4 py-2">
+    <%= @order.address %> - <%= @order.phone_number %>
+  </td>
   <td class={[(@order.status != :DELIVERED && "text-orange-600") || "", "border px-4 py-2"]}>
     <%= humanize(@order.status) %>
   </td>
-  <td class="border px-4 py-2"><%= @order.updated_at %></td>
+  <td class="border px-4 py-2">
+    <%= @order.updated_at |> NaiveDateTime.to_string() %>
+  </td>
 </tr>
