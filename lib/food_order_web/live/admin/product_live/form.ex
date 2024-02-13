@@ -2,9 +2,16 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
   alias FoodOrder.Products
   use FoodOrderWeb, :live_component
 
+  @upload_options [accept: ~w/.png .jpeg .jpg/, max_entries: 1]
+
   def update(%{product: product} = assigns, socket) do
     changeset = Products.change_product(product)
-    {:ok, socket |> assign(assigns) |> assign(form: to_form(changeset))}
+
+    {:ok,
+     socket
+     |> assign(assigns)
+     |> assign(form: to_form(changeset))
+     |> allow_upload(:image_url, @upload_options)}
   end
 
   def handle_event("validate", %{"product" => product_params}, socket) do
@@ -46,5 +53,16 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
       {:error, changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}
     end
+  end
+
+  def error_to_string(:too_large), do: "Too large"
+  def error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
+
+  def handle_event("cancel", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :image_url, ref)}
+  end
+
+  def handle_event("validate", _params, socket) do
+    {:noreply, socket}
   end
 end
