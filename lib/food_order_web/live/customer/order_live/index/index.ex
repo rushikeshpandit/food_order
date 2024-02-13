@@ -1,5 +1,5 @@
 defmodule FoodOrderWeb.Customer.OrderLive.Index do
-  import Phoenix.Naming, only: [humanize: 1]
+  alias __MODULE__.Row
   use FoodOrderWeb, :live_view
   alias FoodOrder.Orders
 
@@ -10,5 +10,10 @@ defmodule FoodOrderWeb.Customer.OrderLive.Index do
     socket = socket |> assign(orders: orders)
 
     {:ok, socket}
+  end
+
+  def handle_info({:update_order_user_row, order}, socket) do
+    send_update(Row, id: order.id, order_updated: order)
+    {:noreply, socket}
   end
 end
