@@ -8,7 +8,9 @@
   >
     <.input field={@form[:name]} label="Name" />
     <.input field={@form[:description]} type="textarea" label="Description" />
-    <.live_file_input upload={@uploads.image_url} />
+    <div class="container" phx-drop-target={@uploads.image_url.ref}>
+      <.live_file_input upload={@uploads.image_url} /> or drag and drop
+    </div>
     <div>
       Add up to <%= @uploads.image_url.max_entries %> photos
       (max <%= trunc(@uploads.image_url.max_file_size / 1_000_000) %> mb each)
