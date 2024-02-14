@@ -25,7 +25,9 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
-    product_params = build_image_url(socket, product_params)
+    {[image_url | _], []} = uploaded_entries(socket, :image_url)
+     image_url = ~p"/uploads/#{get_file_name(image_url)}"
+     product_params = Map.put(product_params, "image_url", image_url)
     save(socket, socket.assigns.action, product_params)
   end
 
@@ -72,15 +74,11 @@ defmodule FoodOrderWeb.Admin.ProductLive.Form do
     "#{entry.uuid}.#{ext}"
   end
 
-  defp build_image_url(socket, product_params) do
-    [image_url | _] =
-      consume_uploaded_entries(socket, :image_url, fn %{path: path}, entry ->
-        file_name = get_file_name(entry)
-        dest = Path.join("priv/static/uploads", file_name)
-        File.cp!(path, dest)
-        {:ok, ~p"/uploads/#{file_name}"}
-      end)
-
-    Map.put(product_params, "image_url", image_url)
-  end
+  defp build_image_url(socket) do
+     consume_uploaded_entries(socket, :image_url, fn %{path: path}, entry ->
+       file_name = get_file_name(entry)
+       dest = Path.join("priv/static/uploads", file_name)
+       {:ok, File.cp!(path, dest)}
+     end)
+   end
 end
