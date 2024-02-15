@@ -27,7 +27,7 @@ defmodule FoodOrder.MixProject do
   def application do
     [
       mod: {FoodOrder.Application, []},
-      extra_applications: [:logger, :eex, :wx, :observer, :runtime_tools]
+      extra_applications: [:logger, :eex, :observer, :runtime_tools]
     ]
   end
 
